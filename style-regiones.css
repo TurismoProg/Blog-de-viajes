@@ -1,0 +1,149 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Montserrat', sans-serif;
+    padding: 10px 30px;
+    background-image: linear-gradient(#e6e6f7, #fff );
+}
+
+.mainbody{
+    width: 100%;
+    height: 100%;
+    position: aboslute;
+}
+
+.container{
+    /* background-color: gray; */
+    width: 100%;
+    padding: 10px 20px 30px 20px;
+}
+
+.container nav{
+    display: flex;
+    align-items: center;    
+    justify-content: space-between;
+    /* background-color: aqua; */
+    gap: 50px;
+}
+
+.logo{
+    font-size: 1.5rem;
+    font-weight: bolder;
+    align-items: center;
+
+}
+
+nav ul{
+    /* background-color: black; */
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+    gap: 45px;
+}
+
+.navbar li{
+    list-style: none;
+    font-weight: 500;
+    transition: all 0,5s ease-in;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    border: solid 1.5px #47519a;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1)
+}
+
+.navbar li a, .logo a{
+    text-decoration: none;
+    color: #47519a;
+}
+
+.navbar li:hover{
+    cursor: pointer;
+    background-color: #47519a;
+}
+
+.navbar li:hover a{
+    color: #e6e6f7;
+}
+.main{
+    margin: 0 auto;
+    width: 92vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    align-items: center;
+  
+ }
+ .doscolumnas{
+    display: flex;
+    margin: 0 auto;
+    margin: 30px 0;
+}
+
+.doscolumnas div{
+    margin-top: 30px;
+    width: 50%;
+    line-height: 2;
+}
+
+.div-left{
+
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    margin-right: 30px;
+}
+
+.doscolumnas figure{
+    width: 50%;
+    margin: 1.5%;
+    display: flex;
+    align-items: center;
+}
+
+.doscolumnas img{
+    width: 500px;
+    border-radius: 10px;
+    border: 2px solid #47519a;
+    height: 350px;
+    object-fit: cover;
+}
+
+.doscolumnas h4{
+    color: #47519a;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.div-right p{
+    text-align: start;
+}
+
+.div-left p{
+    text-align: end;
+}
+
+.div-right figure{
+    justify-content: end;
+}
+
+.div-left figure{
+    justify-content: start;
+}
+
+
+footer{
+    margin: 0;
+    padding: 40px;
+
+}
+footer p{
+    color: #47519a;
+    text-align: center;
+}

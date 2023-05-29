@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de contacto</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #222;
+    }
+
+    .container {
+      max-width: 400px;
+      width: 90%;
+      /* Modificar este valor para ajustar el ancho máximo */
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #555;
+      border-radius: 4px;
+      box-sizing: border-box;
+      background-color: #555;
+      color: #fff;
+    }
+
+    .error {
+      color: red;
+    }
+
+    button[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: 90%;
+        /* Modificar este valor para ajustar el ancho máximo en dispositivos móviles */
+        padding: 10px;
+      }
+    }
+
+    .confirmation-message {
+      display: none;
+      text-align: center;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+
+    .mainbody {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+
+    .conta {
+      width: 100%;
+      padding: 10px 20px 30px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: gray;
+    }
+
+    .conta nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 1200px;
+      /* Modificar este valor para ajustar el ancho máximo del navbar */
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bolder;
+      align-items: center;
+    }
+
+    nav ul {
+      width: 100%;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      padding: 0;
+      gap: 45px;
+      margin: 0;
+    }
+
+    .navbar li {
+      list-style: none;
+      font-weight: 500;
+      transition: all 0.5s ease-in;
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 0.9rem;
+      border: solid 1.5px #47519a;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar li a,
+    .logo a {
+      text-decoration: none;
+      color: #47519a;
+    }
+
+    .navbar li:hover {
+      cursor: pointer;
+      background-color: #47519a;
+    }
+
+    .navbar li:hover a {
+      color: #e6e6f7;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="mainbody">
+    <div class="conta">
+      <nav>
+        <div class="logo">
+          <a href="index.html">Argentina</a>
+        </div>
+        <ul class="navbar">
+          <li><a target="_blank" href="./Index.html">Regiones</a></li>
+          <li><a target="_blank" href="./actividades.html">Actividades</a></li>
+          <li><a target="_blank" href="./iformacion.html">Información</a></li>
+          <li><a target="_blank" href="./contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <div class="container">
+    <h1>Formulario de contacto</h1>
+
+    <form id="contactForm">
+      <div>
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" required>
+        <span id="nameError" class="error"></span>
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        <span id="emailError" class="error"></span>
+      </div>
+      <div>
+        <label for="message">Mensaje:</label>
+        <textarea id="message" required></textarea>
+        <span id="messageError" class="error"></span>
+      </div>
+      <button type="submit">Enviar</button>
+    </form>
+    <div id="confirmationMessage" class="confirmation-message"></div>
+  </div>
+
+  <script>
+    // Obtener referencias a los elementos del formulario
+    const form = document.getElementById('contactForm');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const messageInput = document.getElementById('message');
+
+    // Validar el formulario al enviar
+    form.addEventListener('submit', function (event) {
+      event.preventDefault(); // Evitar el envío del formulario
+
+      // Reiniciar los mensajes de error
+      resetErrors();
+
+      // Validar los campos
+      let isValid = true;
+
+      if (nameInput.value.trim() === '') {
+        displayError('nameError', 'Por favor, ingresa tu nombre');
+        isValid = false;
+      }
+
+      if (emailInput.value.trim() === '') {
+        displayError('emailError', 'Por favor, ingresa tu correo electrónico');
+        isValid = false;
+      } else if (!isValidEmail(emailInput.value.trim())) {
+        displayError('emailError', 'Por favor, ingresa un correo electrónico válido');
+        isValid = false;
+      }
+
+      if (messageInput.value.trim() === '') {
+        displayError('messageError', 'Por favor, ingresa un mensaje');
+        isValid = false;
+      }
+
+      // Si el formulario es válido, puedes hacer lo que necesites aquí
+      if (isValid) {
+        // Ejemplo: enviar el formulario a un servidor
+        sendForm();
+      }
+    });
+
+    // Función para mostrar mensajes de error
+    function displayError(elementId, errorMessage) {
+      const errorElement = document.getElementById(elementId);
+      errorElement.textContent = errorMessage;
+    }
+
+    // Función para reiniciar los mensajes de error
+    function resetErrors() {
+      const errorElements = document.getElementsByClassName('error');
+      for (let i = 0; i < errorElements.length; i++) {
+        errorElements[i].textContent = '';
+      }
+    }
+
+    // Función para validar el formato del correo electrónico
+    function isValidEmail(email) {
+      // Utiliza una expresión regular para validar el formato del correo electrónico
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    // Función de ejemplo para enviar el formulario
+    function sendForm() {
+      // Aquí puedes realizar acciones adicionales, como enviar el formulario a un servidor
+      // Por simplicidad, este ejemplo solo muestra un mensaje en la consola
+      console.log('Formulario enviado');
+    }
+  </script>
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function (event) {
+      event.preventDefault(); // Evita el envío del formulario por defecto
+
+      // Validar el formulario aquí...
+      // Si el formulario es válido, se muestra el mensaje de confirmación
+
+      // Mostrar el mensaje de confirmación
+      var confirmationMessage = document.getElementById('confirmationMessage');
+      confirmationMessage.textContent = '¡Gracias por enviar el formulario de contacto!';
+      confirmationMessage.style.display = 'block';
+
+      // Opcional: Establecer un tiempo de duración para mostrar el mensaje antes de ocultarlo automáticamente
+      setTimeout(function () {
+        confirmationMessage.style.display = 'none';
+      }, 5000); // 5000 milisegundos = 5 segundos
+    });
+  </script>
+
+</html>
